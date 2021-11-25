@@ -1,6 +1,8 @@
 #include <stdio.h>
+#include "my_mat.h"
 
 int mat[10][10];
+int ans[10][10];
 
 void function1(){
     int num;
@@ -12,37 +14,52 @@ void function1(){
                mat[i][j]=num; //shoud be a char or int?
            }
         }
+        printf("\n");
 }
 
+void function2(){
+    int i,j;
+    scanf("%d",&i);
+    scanf("%d",&j);
+    
+    if (mat[i][j]==0) printf("False");
+    else printf("True");
 
+    printf("\n");
+}
 
-// int* FWalgorithm(int i, int j){
-//     int arr[10];
-//    return arr; 
-// }
+void FWalgorithm(){
+    for (int k = 0; k < 10; k++)
+    {
+        for (int r = 0; r < 10; r++)
+        {
+         ans[k][r]=mat[k][r];  
+        }
+    }
 
-// void function2(){
-//     int i;
-//     int j;
-//     scanf("%d",&i);
-//     scanf("%d",&j);
-//     int[] path =FWalgorithm(i,j);
-//     if (sizeof(path)==0) printf("False")
-//     else printf("True")
-// }
+    for (int a = 0; a < 10; a++)
+    {
+      for (int b = 0; b < 10; b++)
+      {
+          for (int c = 0; c < 10; c++)
+          {
+              if(ans[b][a]+ans[a][c]< ans[b][c] && ans[b][a]+ans[a][c]!=0)
+              ans[b][c]=ans[b][a]+ans[a][c];
+          }
+      }
+    }
+}
 
-// void function3(){
-//     int i;
-//     int j;
-//     scanf("%d",&i);
-//     scanf("%d",&j);
+void function3(){
+    int i;
+    int j;
+    scanf("%d",&i);
+    scanf("%d",&j);
 
-//     int[] path =FWalgorithm(i,j);
-//     sizeOfPath= sizeof(path)/ sizeof(int);
-//     if (sizeOfPath==0) printf("-1");
+    FWalgorithm();
+    
+    if (ans[i][j]==0) printf("-1");
+    else printf("%d",ans[i][j]);
 
-//     for (int k = 0; k < sizeOfPath; k++)
-//     {
-//         printf("%d",path[k]);
-//     }
-// }
+    printf("\n");
+}
