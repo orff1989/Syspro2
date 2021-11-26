@@ -3,6 +3,9 @@
 
 int mat[10][10];
 int ans[10][10];
+int matChanged=0;
+int ansChanged=0;
+int inf = 999999;
 
 void printMat(){
  for (int k = 0; k < 10; k++)
@@ -38,29 +41,53 @@ void function1(){
                mat[i][j]=num; 
            }
         }
+        matChanged++;
 }
 
-
-void FWalgorithm(){
-    for (int k = 0; k < 10; k++)
+void buildAns(){
+   for (int k = 0; k < 10; k++)
     {
         for (int r = 0; r < 10; r++)
         {
-         ans[k][r]=mat[k][r];  
-        }
-    }
+            if (mat[k][r]==0 && r!=k)
+            {
+               ans[k][r]=inf;
+            }
+            else{
+                ans[k][r]=mat[k][r];  
+            }
+        } 
+}
+}
 
+void fixAns(){
+    for (int h = 0; h < 10; h++)
+    {
+        for (int v = 0; v < 10; v++)
+    {
+        if (ans[h][v]==inf) ans[h][v]=0;
+    }
+    }    
+}
+
+void FWalgorithm(){
+    if (matChanged>ansChanged){
+    buildAns();
+    
     for (int a = 0; a < 10; a++)
     {
       for (int b = 0; b < 10; b++)
       {
           for (int c = 0; c < 10; c++)
           {
-              if(ans[b][a]+ans[a][c]< ans[b][c] || ans[b][c]==0)
+              if(ans[b][a]+ans[a][c]< ans[b][c])
               ans[b][c]=ans[b][a]+ans[a][c];
           }
       }
     }
+    ansChanged++;
+    fixAns();
+}
 }
 
 void function2(){
